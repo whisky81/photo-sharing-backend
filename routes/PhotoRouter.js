@@ -1,26 +1,10 @@
 const express = require("express");
-const Photo = require("../db/photoModel");
 const router = express.Router();
+const PhotoController = require("../controllers/PhotoController"); 
+const UserController = require("../controllers/UserController");
 
-// router.post("/", async (request, response) => {
-  
-// });
-
-router.get("/list", async (req, res) => {
-    const photos = await Photo.find({});
-    return res.json({
-        photos
-    });
-});
-
-
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-
-    const photo = await Photo.findById(id).populate('user_id').populate('comments.user');
-
-    return res.json(photo); 
-
-});
+router.get("/list", PhotoController.allOfPhotos);
+router.get("/:photoId", PhotoController.getPhotoById);
+router.get("/user/:userId", UserController.getUserById, PhotoController.getPhotosByUserId); 
 
 module.exports = router;
