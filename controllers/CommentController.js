@@ -25,7 +25,10 @@ async function getCommentsByUserId(req, res) {
       },
     ]);
 
-    return res.status(200).json(comments);
+    return res.status(200).json({
+      comments,
+      owner: req.user 
+    });
   } catch (error) {
     return res.status(500).json({
       message: error.message,

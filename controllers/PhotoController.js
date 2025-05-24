@@ -79,7 +79,10 @@ async function getPhotosByUserId(req, res) {
         select: { _id: true, first_name: true, last_name: true },
       });
 
-    return res.status(200).json(photos);
+    return res.status(200).json({
+      photos,
+      owner: req.user 
+    });
   } catch (error) {
     return res.status(500).json({
       message: error.message,
